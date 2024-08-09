@@ -2,10 +2,10 @@
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { motion,AnimatePresence } from 'framer-motion'
 
 
 const users = [
@@ -17,8 +17,7 @@ const users = [
 ];
 
 
-export default function TeamSelector() {
-    const { register, handleSubmit } = useForm()
+export default function TeamSelector({data,setData}) {
     const [team, setTeam] = useState([])
     const [task, setTask] = useState([])
     const [result, setResult] = useState([])
@@ -35,7 +34,8 @@ export default function TeamSelector() {
         setResult([])  // Clear the results after adding the user
     }
     return (
-        <div className='p-2 lg:p-8 flex flex-col items-center'>
+        <AnimatePresence>
+        <motion.div animate={{opacity:[0,1]}} exit={{opacity:[1,0]}} transition={{duration:1}} className='p-2 lg:p-8 flex flex-col items-center'>
         <Card className="lg:w-3/5 p-1 lg:p-2 w-full dark:bg-neutral-900 dark:text-white dark:border-2 dark:border-white/40">
             <CardTitle className="p-4 lg:p-2">Team</CardTitle>
             <CardContent className="p-1 lg:p-4">
@@ -51,9 +51,9 @@ export default function TeamSelector() {
             </CardContent>
         </Card>
 
-        <form className='w-full lg:w-1/3 my-4' onSubmit={handleSubmit(findUser)}>
+        <form className='w-full lg:w-1/3 my-4' onSubmit={findUser}>
             <Label className="w-full" htmlFor="user-mail">Search User by Email</Label>
-            <Input className="w-full mt-4" id="user-mail" type="text" {...register("email")} placeholder="Search Email" />
+            <Input className="w-full mt-4" id="user-mail" type="text" name="email" placeholder="Search Email" />
             <Button className="my-4 w-full h-12" type="submit">Find</Button>
         </form>
 
@@ -74,7 +74,8 @@ export default function TeamSelector() {
                 </ScrollArea>
             </CardContent>
         </Card>
-    </div>
+    </motion.div>
+    </AnimatePresence>
     )
 
 }
