@@ -21,7 +21,7 @@ export default function TaskCreator({data,setData}) {
   } 
   return (
     <AnimatePresence>
-      <motion.div animate={{opacity:[0,1]}} exit={{x:[0,100],opacity:[1,0]}} transition={{duration:1}}>
+      <motion.div animate={{opacity:[0,1]}} exit={{x:-100}} transition={{duration:1,ease:"circInOut"}}>
 
         <Dialog>
         <Card className="lg:w-1/3 lg:my-4 lg:mx-auto p-2 dark:bg-neutral-900 shadow-md shadow-black/20">
@@ -33,7 +33,7 @@ export default function TaskCreator({data,setData}) {
             </Card>) : <div className='text-center'>Add Tasks to Project</div>}
           </CardContent>
         </Card>
-          <DialogTrigger asChild className='place-items-end'>
+          <DialogTrigger asChild className='flex justify-center'>
             <Button variant="outline" className="m-4"><Plus /> Task</Button>
           </DialogTrigger>
           <DialogContent className="mx-auto w-[95vw] rounded-md">
